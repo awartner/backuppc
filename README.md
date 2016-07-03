@@ -1,3 +1,3 @@
 # backuppc
 
-Installs and configures BackupPC for my home network.
+Installs and configures BackupPC.
