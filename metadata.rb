@@ -1,0 +1,7 @@
+name 'backuppc'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures backuppc'
+long_description 'Installs/Configures backuppc'
+version '0.1.0'
