@@ -1,16 +1,23 @@
 #
-# Cookbook Name:: backuppc
-# Spec:: default
+# Cookbook Name:: aw-backuppc
+# Spec:: server
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'backuppc::server' do
+describe 'aw-backuppc::server' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.converge(described_recipe)
+    end
+
+    before do
+      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe)
+        .and_call_original
+      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe)
+        .with('nginx')
     end
 
     it 'converges successfully' do

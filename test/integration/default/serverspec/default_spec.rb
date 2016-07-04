@@ -1,9 +1,13 @@
 require 'spec_helper'
 
-describe 'backuppc::default' do
-  # Serverspec examples can be found at
-  # http://serverspec.org/resource_types.html
-  it 'does something' do
-    skip 'Replace this with meaningful tests'
+describe 'aw-backuppc::default' do
+  it 'reports an okay status' do
+    status = 'sudo -u backuppc '\
+             '/usr/share/backuppc/bin/BackupPC_serverMesg status'
+    expect(command(status).stdout).to match(/Got reply: ok/)
+  end
+
+  it 'loads a CGI page' do
+    expect(command('curl http://localhost/backuppc').stdout).to match('<head><title>401 Authorization Required</title></head>')
   end
 end
