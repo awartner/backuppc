@@ -4,9 +4,12 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
+
 include_recipe 'apt'
 
 package 'nginx'
+package 'fcgiwrap'
 package 'backuppc'
 
 template ::File.join(node['backuppc']['ConfDir'], 'config.pl') do
@@ -17,7 +20,11 @@ template ::File.join(node['backuppc']['ConfDir'], 'config.pl') do
 end
 
 service 'backuppc' do
-  action :nothing
+  action [:enable, :start]
+end
+
+service 'fcgiwrap' do
+  action [:enable, :start]
 end
 
 include_recipe 'nginx'
@@ -29,4 +36,11 @@ end
 
 service 'nginx' do
   action :nothing
+end
+
+node.set_unless['backuppc']['cgi']['admin_pass'] = random_password
+
+htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
+  user node['backuppc']['cgi']['admin_user']
+  password node['backuppc']['cgi']['admin_pass']
 end

@@ -2,14 +2,15 @@ server {
   listen <%= node['backuppc']['cgi']['port'] %>;
   server_name <%= node['backuppc']['cgi']['servername'] %>;
 
-  access_log <%= ::File.join(node['nginx']['log_dir'], 'backuppc.access_log') %>;
-  error_log  <%= ::File.join(node['nginx']['log_dir'], 'backuppc.error_log') %>;
+  access_log <%= ::File.join(node['nginx']['log_dir'], 'backuppc.access.log') %>;
+  error_log  <%= ::File.join(node['nginx']['log_dir'], 'backuppc.error.log') %>;
 
+  root <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>;
 
   location /backuppc {
     auth_basic "BackupPC admin";
     auth_basic_user_file <%= ::File.join(node['backuppc']['ConfDir'], 'htpasswd') %>;
-    root <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>;
+    alias <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>/;  
     index /index.cgi;
   }
 

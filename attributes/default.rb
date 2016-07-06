@@ -25,3 +25,7 @@ default['backuppc']['PingPath'] = '/bin/ping'
 default['backuppc']['cgi']['port'] = 80
 default['backuppc']['cgi']['socket'] = 'unix:/var/run/fcgiwrap.socket'
 default['backuppc']['cgi']['servername'] = 'localhost'
+
+default['backuppc']['htpasswd_path'] = '/usr/bin/htpasswd'
+default['backuppc']['cgi']['admin_user'] = 'admin'
+default['backuppc']['cgi']['admin_pass'] = nil
