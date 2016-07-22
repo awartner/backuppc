@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: aw_backuppc
-# Spec:: default
+# Cookbook Name:: backuppc
+# Recipe:: nginx
 #
 # The MIT License (MIT)
 #
@@ -24,17 +24,31 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'spec_helper'
+Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
 
-describe 'aw_backuppc::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+include_recipe 'apt'
 
-    it 'converges successfully' do
-      chef_run # This should not raise an error
-    end
-  end
+package 'fcgiwrap'
+
+service 'fcgiwrap' do
+  action [:enable, :start]
+end
+
+include_recipe 'nginx'
+
+nginx_site node['backuppc']['cgi']['servername'] do
+  template 'backuppc_site.erb'
+end
+
+node.set_unless['backuppc']['cgi']['admin_pass'] = random_password
+
+directory node['backuppc']['ConfDir']
+
+htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
+  user node['backuppc']['cgi']['admin_user']
+  password node['backuppc']['cgi']['admin_pass']
+end
+
+service 'nginx' do
+  action [:enable, :start]
 end

@@ -1,10 +1,10 @@
-name 'aw-backuppc'
+name 'aw_backuppc'
 maintainer 'Aaron Wartner'
 maintainer_email 'aawartner@gmail.com'
 license 'MIT'
 description 'Installs and configures BackupPC'
 long_description 'Installs and configures BackupPC'
-version '0.1.0'
+version '1.0.0'
 
 depends 'apt'
 depends 'htpasswd', '~> 0.2.4'
