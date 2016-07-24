@@ -36,6 +36,10 @@ end
 
 include_recipe 'nginx'
 
+nginx_site 'default' do
+  enable false
+end
+
 nginx_site node['backuppc']['cgi']['servername'] do
   template 'backuppc_site.erb'
 end
@@ -50,5 +54,5 @@ htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
 end
 
 service 'nginx' do
-  action [:enable, :start]
+  action [:reload]
 end

@@ -10,7 +10,7 @@ server {
   location /backuppc {
     auth_basic "BackupPC admin";
     auth_basic_user_file <%= ::File.join(node['backuppc']['ConfDir'], 'htpasswd') %>;
-    alias <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>/;  
+    alias <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>/;
     index /index.cgi;
   }
 
