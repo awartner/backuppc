@@ -29,6 +29,12 @@ include_recipe 'apt'
 package 'nginx'
 package 'backuppc'
 
+sudo 'backuppc_local' do
+  user 'backuppc'
+  nopasswd true
+  commands ['/bin/tar']
+end
+
 template ::File.join(node['backuppc']['ConfDir'], 'config.pl') do
   source 'config.pl.erb'
   owner node['backuppc']['user']

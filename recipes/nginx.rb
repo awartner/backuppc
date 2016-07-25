@@ -40,10 +40,6 @@ nginx_site 'default' do
   enable false
 end
 
-nginx_site node['backuppc']['cgi']['servername'] do
-  template 'backuppc_site.erb'
-end
-
 node.set_unless['backuppc']['cgi']['admin_pass'] = random_password
 
 directory node['backuppc']['ConfDir']
@@ -53,6 +49,6 @@ htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
   password node['backuppc']['cgi']['admin_pass']
 end
 
-service 'nginx' do
-  action [:reload]
+nginx_site node['backuppc']['cgi']['servername'] do
+  template 'backuppc_site.erb'
 end

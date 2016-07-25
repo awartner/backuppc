@@ -49,3 +49,5 @@ default['backuppc']['cgi']['servername'] = 'localhost'
 default['backuppc']['htpasswd_path'] = '/usr/bin/htpasswd'
 default['backuppc']['cgi']['admin_user'] = 'admin'
 default['backuppc']['cgi']['admin_pass'] = nil
+
+default['authorization']['sudo']['include_sudoers_d'] = true
