@@ -4,7 +4,7 @@ maintainer_email 'aawartner@gmail.com'
 license 'MIT'
 description 'Installs and configures BackupPC'
 long_description 'Installs and configures BackupPC'
-version '1.1.0'
+version '1.2.0'
 
 depends 'apt', '>= 2.0'
 depends 'htpasswd', '~> 0.2'
