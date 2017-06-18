@@ -29,7 +29,7 @@ require 'spec_helper'
 
 describe 'aw_backuppc::nginx' do
   context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.converge(described_recipe)
     end
@@ -48,6 +48,10 @@ describe 'aw_backuppc::nginx' do
     it 'adds an admin login' do
       expect(chef_run).to add_htpasswd('/etc/backuppc/htpasswd')
         .with(user: 'admin')
+    end
+
+    it 'adds a web site' do
+      expect(chef_run).to enable_nginx_site('localhost')
     end
   end
 end

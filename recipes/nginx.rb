@@ -34,15 +34,20 @@ service 'fcgiwrap' do
   action [:enable, :start]
 end
 
-include_recipe 'nginx'
+include_recipe 'chef_nginx::default'
 
 nginx_site 'default' do
-  enable false
+  action :disable
 end
 
-node.set_unless['backuppc']['cgi']['admin_pass'] = random_password
+node.default_unless['backuppc']['cgi']['admin_pass'] = random_password
 
 directory node['backuppc']['ConfDir']
+
+# Fix for the htpasswd cookbook
+chef_gem 'htauth' do
+  compile_time false
+end
 
 htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
   user node['backuppc']['cgi']['admin_user']
