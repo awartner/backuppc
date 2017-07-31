@@ -27,9 +27,9 @@
 require 'spec_helper'
 
 describe 'aw_backuppc::default' do
-  context 'When all attributes are default, on an unspecified platform' do
+  context 'When all attributes are default, on Debian 8.0' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new(platform: 'debian', version: '8.0')
       runner.converge(described_recipe)
     end
 

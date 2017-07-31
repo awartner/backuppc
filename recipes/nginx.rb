@@ -36,10 +36,6 @@ end
 
 include_recipe 'chef_nginx::default'
 
-nginx_site 'default' do
-  action :disable
-end
-
 node.default_unless['backuppc']['cgi']['admin_pass'] = random_password
 
 directory node['backuppc']['ConfDir']
