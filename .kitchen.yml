@@ -7,11 +7,14 @@ driver:
 provisioner:
   name: chef_zero
 
+verifier:
+  name: inspec
+
 platforms:
   - name: debian-9.0
 
 suites:
-  - name: default
+  - name: server
     run_list:
       - recipe[backuppc::nginx]
       - recipe[backuppc::server]
