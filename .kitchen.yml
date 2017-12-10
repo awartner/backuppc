@@ -13,8 +13,8 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[aw_backuppc::nginx]
-      - recipe[aw_backuppc::server]
+      - recipe[backuppc::nginx]
+      - recipe[backuppc::server]
     attributes:
       backuppc:
         cgi:

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: aw_backuppc
+# Cookbook Name:: backuppc
 # Recipe:: server
 #
 # The MIT License (MIT)

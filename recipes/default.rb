@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: aw_backuppc
+# Cookbook Name:: backuppc
 # Recipe:: default
 #
 # The MIT License (MIT)
@@ -24,4 +24,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'aw_backuppc::server'
+include_recipe 'backuppc::server'

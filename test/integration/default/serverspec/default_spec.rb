@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'aw_backuppc::default' do
+describe 'backuppc::default' do
   it 'reports an okay status' do
     status = 'sudo -u backuppc '\
              '/usr/share/backuppc/bin/BackupPC_serverMesg status'

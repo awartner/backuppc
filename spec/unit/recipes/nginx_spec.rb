@@ -26,7 +26,7 @@
 
 require 'spec_helper'
 
-describe 'aw_backuppc::nginx' do
+describe 'backuppc::nginx' do
   context 'When all attributes are default, on Debian 8.0' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'debian', version: '8.0')

@@ -1,4 +1,4 @@
-name 'aw_backuppc'
+name 'backuppc'
 maintainer 'Aaron Wartner'
 maintainer_email 'aawartner@gmail.com'
 license 'MIT'

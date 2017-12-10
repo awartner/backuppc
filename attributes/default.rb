@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: aw_backuppc
+# Cookbook Name:: backuppc
 # Attributes:: default
 #
 # The MIT License (MIT)
