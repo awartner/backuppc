@@ -27,17 +27,10 @@
 require 'spec_helper'
 
 describe 'backuppc::nginx' do
-  context 'When all attributes are default, on Debian 8.0' do
+  context 'When all attributes are default, on Debian 9.0' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'debian', version: '8.0')
+      runner = ChefSpec::SoloRunner.new(platform: 'debian', version: '9.0')
       runner.converge(described_recipe)
-    end
-
-    before do
-      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe)
-        .and_call_original
-      allow_any_instance_of(Chef::Recipe).to receive(:include_recipe)
-        .with('nginx')
     end
 
     it 'converges successfully' do
