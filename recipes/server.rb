@@ -26,7 +26,6 @@
 
 include_recipe 'apt'
 
-package 'nginx'
 package 'backuppc'
 
 sudo 'backuppc_local' do
