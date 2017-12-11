@@ -1,24 +1,24 @@
 server {
-  listen <%= node['backuppc']['cgi']['port'] %>;
-  server_name <%= node['backuppc']['cgi']['servername'] %>;
+  listen <%= @http_port %>;
+  server_name <%= @servername %>;
 
-  access_log <%= ::File.join(node['nginx']['log_dir'], 'backuppc.access.log') %>;
-  error_log  <%= ::File.join(node['nginx']['log_dir'], 'backuppc.error.log') %>;
+  access_log <%= @access_log %>;
+  error_log  <%= @error_log %>;
 
-  root <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>;
+  root <%= @root %>;
 
   location /backuppc {
     auth_basic "BackupPC admin";
-    auth_basic_user_file <%= ::File.join(node['backuppc']['ConfDir'], 'htpasswd') %>;
-    alias <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>/;
+    auth_basic_user_file <%= @htpasswd %>;
+    alias <%= @cgi_bin %>/;
     index /index.cgi;
   }
 
   location  ~\.cgi$ {
     gzip off;
-    include <%= ::File.join(node['nginx']['dir'], 'fastcgi_params') %>;
-    fastcgi_pass <%= node['backuppc']['cgi']['socket'] %>;
+    include <%= @fastcgi_params %>;
+    fastcgi_pass <%= @fastcgi_socket %>;
     fastcgi_index BackupPC_Admin;
-    fastcgi_param SCRIPT_FILENAME <%= ::File.join(node['backuppc']['InstallDir'], 'cgi-bin') %>$fastcgi_script_name;
+    fastcgi_param SCRIPT_FILENAME <%= @cgi_bin %>$fastcgi_script_name;
   }
 }

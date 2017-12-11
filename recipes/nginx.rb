@@ -52,4 +52,15 @@ end
 
 nginx_site node['backuppc']['cgi']['servername'] do
   template 'backuppc_site.erb'
+  variables(
+    http_port: node['backuppc']['cgi']['port'],
+    servername: node['backuppc']['cgi']['servername'],
+    access_log: ::File.join(node['nginx']['log_dir'], 'backuppc.access.log'),
+    error_log: ::File.join(node['nginx']['log_dir'], 'backuppc.error.log'),
+    root: ::File.join(node['backuppc']['InstallDir'], 'cgi-bin'),
+    htpasswd: ::File.join(node['backuppc']['ConfDir'], 'htpasswd'),
+    cgi_bin: ::File.join(node['backuppc']['InstallDir'], 'cgi-bin'),
+    fastcgi_params: ::File.join(node['nginx']['dir'], 'fastcgi_params'),
+    fastcgi_socket: node['backuppc']['cgi']['socket']
+  )
 end
