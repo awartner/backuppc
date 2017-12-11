@@ -36,31 +36,31 @@ end
 
 include_recipe 'chef_nginx::default'
 
-node.default_unless['backuppc']['cgi']['admin_pass'] = random_password
+node.default_unless[cookbook_name]['cgi']['admin_pass'] = random_password
 
-directory node['backuppc']['ConfDir']
+directory node[cookbook_name]['ConfDir']
 
 # Fix for the htpasswd cookbook
 chef_gem 'htauth' do
   compile_time false
 end
 
-htpasswd ::File.join(node['backuppc']['ConfDir'], 'htpasswd') do
-  user node['backuppc']['cgi']['admin_user']
-  password node['backuppc']['cgi']['admin_pass']
+htpasswd ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd') do
+  user node[cookbook_name]['cgi']['admin_user']
+  password node[cookbook_name]['cgi']['admin_pass']
 end
 
-nginx_site node['backuppc']['cgi']['servername'] do
+nginx_site node[cookbook_name]['cgi']['servername'] do
   template 'backuppc_site.erb'
   variables(
-    http_port: node['backuppc']['cgi']['port'],
-    servername: node['backuppc']['cgi']['servername'],
+    http_port: node[cookbook_name]['cgi']['port'],
+    servername: node[cookbook_name]['cgi']['servername'],
     access_log: ::File.join(node['nginx']['log_dir'], 'backuppc.access.log'),
     error_log: ::File.join(node['nginx']['log_dir'], 'backuppc.error.log'),
-    root: ::File.join(node['backuppc']['InstallDir'], 'cgi-bin'),
-    htpasswd: ::File.join(node['backuppc']['ConfDir'], 'htpasswd'),
-    cgi_bin: ::File.join(node['backuppc']['InstallDir'], 'cgi-bin'),
+    root: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
+    htpasswd: ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd'),
+    cgi_bin: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
     fastcgi_params: ::File.join(node['nginx']['dir'], 'fastcgi_params'),
-    fastcgi_socket: node['backuppc']['cgi']['socket']
+    fastcgi_socket: node[cookbook_name]['cgi']['socket']
   )
 end
