@@ -36,8 +36,6 @@ end
 
 include_recipe 'chef_nginx::default'
 
-node.default_unless[cookbook_name]['cgi']['admin_pass'] = random_password
-
 directory node[cookbook_name]['ConfDir']
 
 # Fix for the htpasswd cookbook
