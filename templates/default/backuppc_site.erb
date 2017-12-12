@@ -6,13 +6,10 @@ server {
   error_log  <%= @error_log %>;
 
   root <%= @root %>;
+  index /index.cgi;
 
-  location /backuppc {
-    auth_basic "BackupPC admin";
-    auth_basic_user_file <%= @htpasswd %>;
-    alias <%= @cgi_bin %>/;
-    index /index.cgi;
-  }
+  auth_basic "BackupPC admin";
+  auth_basic_user_file <%= @htpasswd %>;
 
   location  ~\.cgi$ {
     gzip off;
