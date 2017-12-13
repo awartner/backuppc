@@ -4,6 +4,8 @@ describe command(status) do
   its('stdout') { should match(/Got reply: ok/) }
 end
 
-describe http('http://localhost/backuppc', enable_remote_worker: true) do
-  its('body') { should include '<title>401 Authorization Required</title>' }
+describe http('http://localhost',
+              auth: { user: 'admin', pass: 'admin' },
+              enable_remote_worker: true) do
+  its('body') { should include '<title>BackupPC Server Status</title>' }
 end
