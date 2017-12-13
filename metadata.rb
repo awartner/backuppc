@@ -4,7 +4,7 @@ maintainer_email 'aawartner@gmail.com'
 license 'MIT'
 description 'Installs and configures BackupPC'
 long_description 'Installs and configures BackupPC'
-version '1.0.2'
+version '1.0.3'
 
 chef_version '>= 13.0' if respond_to?(:chef_version)
 
