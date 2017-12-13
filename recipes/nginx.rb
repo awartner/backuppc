@@ -55,7 +55,6 @@ nginx_site node[cookbook_name]['cgi']['servername'] do
     servername: node[cookbook_name]['cgi']['servername'],
     access_log: ::File.join(node['nginx']['log_dir'], 'backuppc.access.log'),
     error_log: ::File.join(node['nginx']['log_dir'], 'backuppc.error.log'),
-    root: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
     htpasswd: ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd'),
     cgi_bin: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
     fastcgi_params: ::File.join(node['nginx']['dir'], 'fastcgi_params'),
