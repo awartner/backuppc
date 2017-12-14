@@ -18,13 +18,14 @@ default[cookbook_name]['RsyncClientPath'] = '/usr/bin/rsync'
 default[cookbook_name]['NmbLookupPath'] = '/usr/bin/nmblookup'
 default[cookbook_name]['PingPath'] = '/bin/ping'
 
-default[cookbook_name]['cgi']['port'] = 80
+default[cookbook_name]['cgi']['http_port'] = 80
+default[cookbook_name]['cgi']['https_port'] = 443
 default[cookbook_name]['cgi']['socket'] = 'unix:/var/run/fcgiwrap.socket'
 default[cookbook_name]['cgi']['servername'] = 'localhost'
-
-default[cookbook_name]['htpasswd_path'] = '/usr/bin/htpasswd'
 default[cookbook_name]['cgi']['admin_user'] = 'admin'
 default[cookbook_name]['cgi']['admin_pass'] = nil
+default[cookbook_name]['cgi']['certificate'] = nil
+default[cookbook_name]['cgi']['certificate_key'] = nil
 
 default['authorization']['sudo']['include_sudoers_d'] = true
 

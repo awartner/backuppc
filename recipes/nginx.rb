@@ -51,13 +51,16 @@ end
 nginx_site node[cookbook_name]['cgi']['servername'] do
   template 'backuppc_site.erb'
   variables(
-    http_port: node[cookbook_name]['cgi']['port'],
+    http_port: node[cookbook_name]['cgi']['http_port'],
+    https_port: node[cookbook_name]['cgi']['https_port'],
     servername: node[cookbook_name]['cgi']['servername'],
     access_log: ::File.join(node['nginx']['log_dir'], 'backuppc.access.log'),
     error_log: ::File.join(node['nginx']['log_dir'], 'backuppc.error.log'),
     htpasswd: ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd'),
     cgi_bin: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
     fastcgi_params: ::File.join(node['nginx']['dir'], 'fastcgi_params'),
-    fastcgi_socket: node[cookbook_name]['cgi']['socket']
+    fastcgi_socket: node[cookbook_name]['cgi']['socket'],
+    certificate: node[cookbook_name]['cgi']['certificate'],
+    certificate_key: node[cookbook_name]['cgi']['certificate_key']
   )
 end

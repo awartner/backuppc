@@ -1,6 +1,16 @@
 server {
   listen <%= @http_port %>;
   server_name <%= @servername %>;
+  redirect 301 https://<%= @servername %>;
+
+  access_log <%= @access_log %>;
+  error_log  <%= @error_log %>;
+}
+
+server {
+  listen <%= @https_port %> ssl;
+  server_name <%= @servername %>;
+  gzip off;
 
   access_log <%= @access_log %>;
   error_log  <%= @error_log %>;
@@ -12,10 +22,21 @@ server {
   auth_basic_user_file <%= @htpasswd %>;
 
   location ~ \.cgi$ {
-    gzip off;
     include <%= @fastcgi_params %>;
     fastcgi_pass <%= @fastcgi_socket %>;
     fastcgi_index index.cgi;
     fastcgi_param SCRIPT_FILENAME <%= @cgi_bin %>$fastcgi_script_name;
   }
+
+  ssl on;
+  ssl_certificate_key <%= @certificate_key %>
+  ssl_certificate <%= @certificate %>
+
+  ssl_protocols TLSv1.2;
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_timeout 10m;
+  ssl_ciphers 'AES256+EECDH:AES256+EDH:!aNULL';
+  ssl_prefer_server_ciphers on;
+  ssl_stapling on;
+  ssl_stapling_verify on;
 }
