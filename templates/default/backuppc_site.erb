@@ -31,7 +31,6 @@ server {
   ssl on;
   ssl_certificate_key <%= @certificate_key %>;
   ssl_certificate <%= @certificate %>;
-
   ssl_protocols TLSv1.2;
   ssl_session_cache shared:SSL:10m;
   ssl_session_timeout 10m;

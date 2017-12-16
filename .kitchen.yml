@@ -15,13 +15,12 @@ platforms:
   - name: debian-9.0
 
 suites:
-  - name: server
+  - name: default
     run_list:
-      - recipe[backuppc::nginx]
-      - recipe[backuppc::server]
+      - recipe[backuppc::default]
     attributes:
       backuppc:
         cgi:
           admin_pass: 'admin'
-          certificate: '/etc/nginx/ssl/fake-cert.pem'
-          certificate_key: '/etc/nginx/ssl/fake-key.pem'
+          certificate: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+          certificate_key: '/etc/ssl/private/ssl-cert-snakeoil.key'

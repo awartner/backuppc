@@ -52,10 +52,6 @@ htpasswd ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd') do
   password node[cookbook_name]['cgi']['admin_pass']
 end
 
-if node[cookbook_name]['cgi']['certificate_key'].nil?
-  raise "Set node['#{cookbook_name}']['cgi']['certificate_key']"
-end
-
 nginx_site node[cookbook_name]['cgi']['servername'] do
   template 'backuppc_site.erb'
   variables(
