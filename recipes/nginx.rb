@@ -24,11 +24,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
-
 include_recipe 'apt'
 
-package 'fcgiwrap'
+%w(fcgiwrap ssl-cert).each { |p| package p }
 
 service 'fcgiwrap' do
   action [:enable, :start]
@@ -43,6 +41,12 @@ chef_gem 'htauth' do
   compile_time false
 end
 
+%w(admin_pass certificate certificate_key).each do |attr|
+  if node[cookbook_name]['cgi'][attr].nil?
+    raise "Set node['#{cookbook_name}']['cgi']['#{attr}']"
+  end
+end
+
 htpasswd ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd') do
   user node[cookbook_name]['cgi']['admin_user']
   password node[cookbook_name]['cgi']['admin_pass']
@@ -51,13 +55,16 @@ end
 nginx_site node[cookbook_name]['cgi']['servername'] do
   template 'backuppc_site.erb'
   variables(
-    http_port: node[cookbook_name]['cgi']['port'],
+    http_port: node[cookbook_name]['cgi']['http_port'],
+    https_port: node[cookbook_name]['cgi']['https_port'],
     servername: node[cookbook_name]['cgi']['servername'],
     access_log: ::File.join(node['nginx']['log_dir'], 'backuppc.access.log'),
     error_log: ::File.join(node['nginx']['log_dir'], 'backuppc.error.log'),
     htpasswd: ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd'),
     cgi_bin: ::File.join(node[cookbook_name]['InstallDir'], 'cgi-bin'),
     fastcgi_params: ::File.join(node['nginx']['dir'], 'fastcgi_params'),
-    fastcgi_socket: node[cookbook_name]['cgi']['socket']
+    fastcgi_socket: node[cookbook_name]['cgi']['socket'],
+    certificate: node[cookbook_name]['cgi']['certificate'],
+    certificate_key: node[cookbook_name]['cgi']['certificate_key']
   )
 end

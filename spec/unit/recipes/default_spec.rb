@@ -25,16 +25,3 @@
 # THE SOFTWARE.
 
 require 'spec_helper'
-
-describe 'backuppc::default' do
-  context 'When all attributes are default, on Debian 9.0' do
-    cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'debian', version: '9.0')
-      runner.converge(described_recipe)
-    end
-
-    it 'converges successfully' do
-      chef_run # This should not raise an error
-    end
-  end
-end

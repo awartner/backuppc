@@ -31,6 +31,8 @@ describe 'backuppc::nginx' do
     cached(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'debian', version: '9.0') do |node|
         node.override['backuppc']['cgi']['admin_pass'] = 'ilikebadpasswords'
+        node.override['backuppc']['cgi']['certificate'] = '/etc/nginx/ssl/test.cert.pem'
+        node.override['backuppc']['cgi']['certificate_key'] = '/etc/nginx/ssl/test.key.pem'
       end.converge(described_recipe)
     end
 

@@ -3,6 +3,7 @@ driver:
   name: vagrant
   network:
     - ["forwarded_port", {guest: 80, host: 80}]
+    - ["forwarded_port", {guest: 443, host: 443}]
 
 provisioner:
   name: chef_zero
@@ -14,11 +15,12 @@ platforms:
   - name: debian-9.0
 
 suites:
-  - name: server
+  - name: default
     run_list:
-      - recipe[backuppc::nginx]
-      - recipe[backuppc::server]
+      - recipe[backuppc::default]
     attributes:
       backuppc:
         cgi:
           admin_pass: 'admin'
+          certificate: '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+          certificate_key: '/etc/ssl/private/ssl-cert-snakeoil.key'
