@@ -41,9 +41,19 @@ chef_gem 'htauth' do
   compile_time false
 end
 
+%w(admin_pass certificate certificate_key).each do |attr|
+  if node[cookbook_name]['cgi'][attr].nil?
+    raise "Set node['#{cookbook_name}']['cgi']['#{attr}']"
+  end
+end
+
 htpasswd ::File.join(node[cookbook_name]['ConfDir'], 'htpasswd') do
   user node[cookbook_name]['cgi']['admin_user']
   password node[cookbook_name]['cgi']['admin_pass']
+end
+
+if node[cookbook_name]['cgi']['certificate_key'].nil?
+  raise "Set node['#{cookbook_name}']['cgi']['certificate_key']"
 end
 
 nginx_site node[cookbook_name]['cgi']['servername'] do

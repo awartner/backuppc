@@ -3,6 +3,7 @@ driver:
   name: vagrant
   network:
     - ["forwarded_port", {guest: 80, host: 80}]
+    - ["forwarded_port", {guest: 443, host: 443}]
 
 provisioner:
   name: chef_zero
@@ -22,3 +23,5 @@ suites:
       backuppc:
         cgi:
           admin_pass: 'admin'
+          certificate: '/etc/nginx/ssl/fake-cert.pem'
+          certificate_key: '/etc/nginx/ssl/fake-key.pem'
