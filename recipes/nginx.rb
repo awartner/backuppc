@@ -26,7 +26,7 @@
 
 include_recipe 'apt'
 
-package 'fcgiwrap'
+%w(fcgiwrap ssl-cert).each { |p| package p }
 
 service 'fcgiwrap' do
   action [:enable, :start]
