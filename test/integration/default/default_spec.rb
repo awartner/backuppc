@@ -4,7 +4,7 @@ describe command(status) do
   its('stdout') { should match(/Got reply: ok/) }
 end
 
-%w[http://localhost https://localhost].each do |uri|
+%w(http://localhost https://localhost).each do |uri|
   describe http(uri,
                 auth: { user: 'admin', pass: 'admin' },
                 enable_remote_worker: true,
