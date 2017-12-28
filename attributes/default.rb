@@ -30,7 +30,3 @@ default[cookbook_name]['cgi']['certificate_key'] = nil
 default['authorization']['sudo']['include_sudoers_d'] = true
 
 default['nginx']['default_site_enabled'] = false
-
-default['postfix']['aliases'] = {
-  'backuppc' => 'root',
-}

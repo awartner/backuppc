@@ -24,7 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-node.default['postfix']['aliases'] = { backuppc: 'root' }
+node.default['postfix']['aliases']['backuppc'] = 'root'
 
 include_recipe 'apt'
 
